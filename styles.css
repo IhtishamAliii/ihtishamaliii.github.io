@@ -8,6 +8,47 @@
     border-radius: 5px;
 }
 
+.green {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #3ae374;
+}
+
+.yellow {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fbc531;
+}
+
+.red {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #EA2027;
+}
+
+.blue {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #00a8ff;
+}
+
+.pink {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #FDA7DF;
+}
+
+.tophigh {
+    background: #ff9f1a;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+
+
 
 
 /* Fonts */
@@ -32,7 +73,10 @@ body {
     padding: 0;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     color: #fff;
+    font-size: 16px;
+    /* Base font size */
 }
+
 
 /* Header and Navigation */
 header {
@@ -78,9 +122,10 @@ nav ul li a:hover {
 
 /* Hero Section */
 .hero {
-    background: url('digital-marketing.png') no-repeat center center/cover;
+    background: url('#') no-repeat center center/cover;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -99,13 +144,15 @@ nav ul li a:hover {
 
 .hero-content {
     position: relative;
+    display: flex;
+    flex-direction: column;
     z-index: 1;
     /* Ensures content is above the particles */
     color: #ffffff;
     /* Adjust text color as needed */
     text-align: center;
     /* Center align the text */
-    padding: 50px;
+    padding: 20px;
     /* Adjust padding as needed */
 }
 
@@ -155,7 +202,8 @@ h2 {
 /* Cards */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /*    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));*/
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 2rem;
 }
 
@@ -339,7 +387,32 @@ footer {
     background: rgba(0, 0, 0, 0.8);
     text-align: center;
     padding: 1rem;
+    color: #fff;
+    /* Added text color for better readability */
+    font-size: 1rem;
+    /* Base font size */
 }
+
+/* Media query for tablets and small screens */
+@media (max-width: 768px) {
+    footer {
+        padding: 0.5rem;
+        /* Reduced padding for smaller screens */
+        font-size: 0.9rem;
+        /* Slightly smaller font size */
+    }
+}
+
+/* Media query for mobile screens */
+@media (max-width: 480px) {
+    footer {
+        padding: 0.3rem;
+        /* Further reduced padding for very small screens */
+        font-size: 0.8rem;
+        /* Even smaller font size */
+    }
+}
+
 
 /* Media Queries */
 @media (max-width: 768px) {
@@ -606,10 +679,10 @@ footer {
     -webkit-text-fill-color: transparent;
 }
 
-#client-reviews h2 {
+/*#client-reviews h2 {
     margin-bottom: 2rem;
     font-size: 2.5rem;
-}
+}*/
 
 .review-cards {
     display: grid;
@@ -695,3 +768,400 @@ blockquote {
     font-style: italic;
     color: #333;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Stats */
+#stats {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    padding: 4rem 0;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+.stat-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+}
+
+.circular-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 2.8;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+}
+
+.stat-item:nth-child(1) .circle {
+    stroke: #00a8ff;
+}
+
+.stat-item:nth-child(2) .circle {
+    stroke: #fbc531;
+}
+
+.stat-item:nth-child(3) .circle {
+    stroke: #4cd137;
+}
+
+@keyframes progress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.stat-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #ccc;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .stat-item {
+        flex-basis: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Global Styles */
+
+/* Responsive typography */
+
+h1 {
+    font-size: 5rem;
+    letter-spacing: 4px;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+/* Hero Section */
+.hero h1 {
+    font-size: 5rem;
+    letter-spacing: 4px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.card h3 {
+    font-size: 1.5rem;
+}
+
+.card .short {
+    font-size: 0.9rem;
+}
+
+.card p {
+    font-size: 1rem;
+}
+
+/* Testimonials */
+.testimonial-card p {
+    font-size: 1rem;
+}
+
+.meta-details h3 {
+    font-size: 1.1rem;
+}
+
+.meta-details p {
+    font-size: 0.9rem;
+}
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        /* Slightly smaller base font size for mobile */
+    }
+
+
+    h1 {
+        font-size: 4rem;
+        letter-spacing: 3px;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    #client-reviews h2 {
+        font-size: 1.75rem;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        letter-spacing: 3px;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+    }
+
+    .card .short {
+        font-size: 0.8rem;
+    }
+
+    .testimonial-card p {
+        font-size: 0.9rem;
+    }
+
+    .meta-details h3 {
+        font-size: 1rem;
+    }
+
+    .meta-details p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+        /* Even smaller base font size for very small screens */
+    }
+
+    h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    #client-reviews h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .card h3 {
+        font-size: 1.1rem;
+    }
+
+    .card .short {
+        font-size: 0.75rem;
+    }
+
+    .tag {
+        font-size: 0.75em;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.review-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #1dd1a1;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the element's total width and height */
+}
+
+.review-section h2,
+.review-section p {
+    color: #000;
+}
+
+.review-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    background-color: #fff;
+    /* Trustpilot green */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.review-button img.button-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.review-button:hover {
+    background-color: #c8d6e5;
+    /* Darker green for hover effect */
+}
+
+.review-button:focus {
+    outline: 2px solid #8395a7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .review-section {
+        padding: 15px;
+        margin: 10px auto;
+        max-width: 100%;
+    }
+
+    .review-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .review-button img.button-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .review-section {
+        padding: 10px;
+        margin: 5px auto;
+    }
+
+    .review-button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .review-button img.button-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
+}
+
+
+
+
+.price-tag {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #5f27cd, #341f97, #5f27cd);
+    /*    background: linear-gradient(135deg, #5f27cd, #341f97, #5f27cd);*/
+    */ color: #fff;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: bold;
+    border: solid #f2f2f2 2px;
+    z-index: 10;
+    text-shadow: #333 0px 0px 1px;
+    /* Ensure it stays on top */
+    letter-spacing: 2px;
+}
+
+
+
+
+/*.price-debate {
+    display: inline-block;
+    font-size:  !important 8px;
+    font-style: italic;
+    color: #c8d6e5;
+    font-weight: 100;
+    font-family: monospace;
+    text-align: center;
+}*/

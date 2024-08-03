@@ -89,3 +89,15 @@ function showPhone() {
 // Attach the functions to the span click events
 document.getElementById("email-placeholder").onclick = showEmail;
 document.getElementById("phone-placeholder").onclick = showPhone;
+
+
+
+
+
+
+
+
+
+
+
+
