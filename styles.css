@@ -47,6 +47,11 @@
     border-radius: 3px;
 }
 
+goldenLine {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #3ae374;
+}
 
 
 
@@ -65,6 +70,7 @@
 
 
 
+
 /* Global Styles */
 body {
     font-family: 'Arial', sans-serif;
@@ -75,13 +81,15 @@ body {
     color: #fff;
     font-size: 16px;
     /* Base font size */
+    height: 100%;
+    overflow-x: hidden;
 }
 
 
 /* Header and Navigation */
 header {
     background: rgba(0, 0, 0, 0.8);
-    position: fixed;
+    position: absolute;
     width: 100%;
     z-index: 1000;
 }
@@ -123,13 +131,14 @@ nav ul li a:hover {
 /* Hero Section */
 .hero {
     background: url('#') no-repeat center center/cover;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     position: relative;
+    height: 100vh;
 }
 
 .hero::before {
@@ -154,6 +163,7 @@ nav ul li a:hover {
     /* Center align the text */
     padding: 20px;
     /* Adjust padding as needed */
+
 }
 
 
@@ -174,16 +184,17 @@ nav ul li a:hover {
     position: relative;
     overflow: hidden;
     /* Ensures no content spills out */
+    height: 100vh;
+
 }
 
 #particles-js {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     top: 0;
     left: 0;
     z-index: 0;
-    /* Ensures particles are behind the content */
 }
 
 
@@ -207,14 +218,28 @@ h2 {
     gap: 2rem;
 }
 
+.accordion-content {
+    display: none;
+    padding: 10px;
+    overflow: hidden;
+}
+
 .card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 1.5rem;
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, height 0.3s;
+    /* Add transition for height */
     position: relative;
+    /*    overflow: hidden;*/
+    display: flex;
+    flex-direction: column;
+    /*    height: fit-content;*/
+    cursor: pointer;
 }
+
+
 
 .card h3 {
     font-size: 26px;
@@ -264,6 +289,10 @@ h2 {
     margin-bottom: 1rem;
 }
 
+
+
+
+
 /* About Section */
 #about {
     position: relative;
@@ -284,6 +313,7 @@ h2 {
 .about-container {
     max-width: 800px;
     margin: 0 auto;
+
 }
 
 /* Services Section */
@@ -370,15 +400,20 @@ h2 {
     color: #fff;
     font-size: 1.5rem;
     transition: color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, height 0.3s;
+
+
 }
 
 .social-icons img {
     width: 80%;
     height: auto;
     object-fit: cover;
+
 }
 
 .social-icons a:hover {
+    transform: scale(1.5);
     color: #3498db;
 }
 
@@ -458,17 +493,18 @@ footer {
 
 
 /* Popup styling */
-.popup {
+/* Popup styling */
+#popup {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 9999999999999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.7);
-    /* Darker overlay */
+    justify-content: center;
+    align-items: center;
 }
 
 .popup-content {
@@ -476,12 +512,11 @@ footer {
     /* Ensure absolute positioning works */
     background: #C9CCD3;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
-    margin: 10% auto;
     padding: 20px;
     /* Adjusted padding */
     border-radius: 10px;
     /* Slightly smaller radius for mobile */
-    width: 90%;
+    width: 80%;
     max-width: 350px;
     /* Adjusted for smaller screens */
     text-align: center;
@@ -489,6 +524,20 @@ footer {
     /* Slightly reduced shadow */
     animation: slide-in 0.5s ease-out;
     /* Animation */
+}
+
+@media (max-width: 600px) {
+    .popup-content {
+        width: 80%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .popup-content {
+        width: 70%;
+        padding: 10px;
+    }
 }
 
 @keyframes slide-in {
@@ -551,8 +600,6 @@ footer {
     transform: translateY(-3px);
     /* Slight lift effect */
 }
-
-
 
 /* WhatsApp Icon Overlay */
 .whatsapp-overlay {
@@ -660,7 +707,6 @@ footer {
         height: 20px;
     }
 }
-
 
 
 /* Upwork Clients Reviews */
@@ -945,6 +991,7 @@ p {
     body {
         font-size: 14px;
         /* Slightly smaller base font size for mobile */
+        overflow-x: hidden;
     }
 
 
@@ -995,6 +1042,7 @@ p {
     body {
         font-size: 13px;
         /* Even smaller base font size for very small screens */
+        overflow-x: hidden;
     }
 
     h1 {
@@ -1133,26 +1181,52 @@ p {
 
 
 
-
 .price-tag {
     position: absolute;
-    top: -15px;
+    /* Changed from relative to absolute for better positioning */
+    top: -18px;
+    /* Adjust top positioning */
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #5f27cd, #341f97, #5f27cd);
-    /*    background: linear-gradient(135deg, #5f27cd, #341f97, #5f27cd);*/
-    */ color: #fff;
-    padding: 5px 10px;
-    border-radius: 100px;
+    color: #fff;
+    padding: 8px 12px;
+    /* Slightly increased padding */
+    border-radius: 50px;
+    /* Adjusted to be less rounded */
     font-size: 12px;
+    /* Increased font size for better readability */
     font-weight: bold;
     border: solid #f2f2f2 2px;
-    z-index: 10;
+    z-index: 9999;
+    /* Reduced z-index to a more reasonable value */
     text-shadow: #333 0px 0px 1px;
-    /* Ensure it stays on top */
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    /* Adjusted letter spacing for readability */
 }
 
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .price-tag {
+        font-size: 10px;
+        /* Smaller font size for tablets */
+        padding: 6px 10px;
+        /* Adjust padding for smaller screens */
+        border-radius: 40px;
+        /* Adjust border radius */
+    }
+}
+
+@media (max-width: 480px) {
+    .price-tag {
+        font-size: 8px;
+        /* Smaller font size for mobile phones */
+        padding: 4px 8px;
+        /* Adjust padding for very small screens */
+        border-radius: 30px;
+        /* Adjust border radius */
+    }
+}
 
 
 
@@ -1165,3 +1239,84 @@ p {
     font-family: monospace;
     text-align: center;
 }*/
+
+
+
+
+
+/* Define the keyframes for the animation */
+@keyframes fadeInMove {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Define the animation class */
+.animate-h2 {
+    animation: fadeInMove 1s ease-out;
+    animation-fill-mode: forwards;
+    /* Keeps the final state of the animation */
+}
+
+/* Hide h2 initially */
+h2 {
+    opacity: 0;
+}
+
+
+/* Define the keyframes for the h3 animation */
+@keyframes scaleInFade {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Define the animation class for h3 tags */
+.animate-h3 {
+    animation: scaleInFade 1s ease-out;
+    animation-fill-mode: forwards;
+    /* Keeps the final state of the animation */
+}
+
+/* Hide h3 initially */
+h3 {
+    opacity: 0;
+}
+
+
+/* Define the keyframes for the p animation */
+@keyframes slideInFade {
+    from {
+        opacity: 0;
+        transform: scalex(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scalex(1);
+    }
+}
+
+/* Define the animation class for p tags */
+.animate-p {
+    animation: slideInFade 1s ease-out;
+    animation-fill-mode: forwards;
+    /* Keeps the final state of the animation */
+}
+
+/* Hide p initially */
+p {
+    opacity: 0;
+}
