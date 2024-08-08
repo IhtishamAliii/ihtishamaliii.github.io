@@ -436,14 +436,19 @@ async function getUserIp() {
     }
 }
 
-// Fetch location data based on IP using ip-api
+// Fetch location data based on IP using ip-api with AllOrigins proxy
 async function getUserLocation(ip) {
     try {
-        const response = await fetch(`http://ip-api.com/json/${ip}`);
+        const url = `http://ip-api.com/json/${ip}`;
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
         const data = await response.json();
-        if (data.status === 'success') {
-            console.log("Country: ", data.country)
-            return { country: data.country, countryCode: data.countryCode };
+        const locationData = JSON.parse(data.contents);
+        if (locationData.status === 'success') {
+            console.log("Country: ", locationData.country);
+            return { country: locationData.country, countryCode: locationData.countryCode };
         } else {
             throw new Error('Location data fetch failed');
         }
@@ -452,6 +457,13 @@ async function getUserLocation(ip) {
         return { country: 'Unknown', countryCode: 'US' }; // Default to 'US' if there's an error
     }
 }
+
+// Example usage
+document.addEventListener('DOMContentLoaded', async function() {
+    const userLocation = await getUserLocation('223.123.93.9');
+    console.log('User Location:', userLocation);
+    // Further logic based on user location can be added here
+});
 
 function getCurrencyFromCountry(countryCode) {
     const countryToCurrency = {
