@@ -1225,6 +1225,8 @@ p {
         /* Adjust padding for very small screens */
         border-radius: 30px;
         /* Adjust border radius */
+        top: -12px;
+
     }
 }
 
