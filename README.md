@@ -29,11 +29,11 @@ I offer a range of services including:
 - **Content Writing**: Crafting engaging and well-researched content for blogs, websites, and marketing materials.
 - **Web Development**: Designing and developing responsive websites with a focus on user experience and performance.
 
-For more details on how I can assist you, please visit the [Services](https://ihtishamali.com/services) page on my website.
+For more details on how I can assist you, please visit the [Services](https://ihtishamali.com/#services) page on my website.
 
 ## Contact
 
-Feel free to contact me via email at [info@ihtishamali.com](mailto:info@ihtishamali.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/yourprofile) for any inquiries or collaboration opportunities.
+Feel free to contact me via email at [info@ihtishamali.com](mailto:info@ihtishamali.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/ihtishamaliii) for any inquiries or collaboration opportunities.
 
 Thank you for visiting my website!
 
