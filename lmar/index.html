@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="//www.instagram.com/embed.js"></script>
+    <link rel="icon" href="../images/clients/lmar-marketing.jpg" type="image/png" />
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8 text-center">
+            <img src="../images/clients/lmar-marketing.jpg" alt="Company Logo" class="mx-auto h-20 object-cover rounded-full">
+        </header>
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-center">Statistics</h2>
+            <canvas id="mediaChart" width="400" height="200"></canvas>
+        </div>
+        <div class="bg-white border border-gray-300 rounded-lg shadow-md p-6 text-center mb-8">
+            <h2 class="text-xl font-bold text-black-800 sm:text-2xl md:text-3xl">Social Media Plan</h2>
+            <p class="text-black-600 text-lg mt-2"><strong>BASIC:</strong> PKR 15,000 / Month</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Media Quota</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="bg-blue-100 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-800">Images</h3>
+                    <p id="imagesQuota" class="text-2xl font-bold text-blue-600">00/10</p>
+                </div>
+                <div class="bg-green-100 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800">Videos</h3>
+                    <p id="videosQuota" class="text-2xl font-bold text-green-600">00/03</p>
+                </div>
+                <div class="bg-purple-100 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800">Ads</h3>
+                    <p id="adsQuota" class="text-2xl font-bold text-purple-600">00/20</p>
+                </div>
+            </div>
+        </div>
+        <div class="mb-8">
+            <label for="monthSelector" class="block text-sm font-medium text-gray-700 mb-2">Select Month:</label>
+            <select id="monthSelector" class="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+        <!-- Table and Card Layout -->
+        <div class="hidden md:block bg-white rounded-lg shadow-lg overflow-x-auto">
+            <table id="mediaTable" class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title/Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uploaded Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platform</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Table data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        <div id="mediaCards" class="block md:hidden">
+            <!-- Cards will be populated here -->
+        </div>
+    </div>
+    <div class="mb-8 flex justify-center">
+        <button id="exportPDF" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Export as PDF</button>
+    </div>
+    <script>
+    let mediaData = {};
+
+    function loadJSONData(callback) {
+        const xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'media-data.json', true);
+        xobj.onreadystatechange = function() {
+            if (xobj.readyState === 4 && xobj.status === 200) {
+                callback(JSON.parse(xobj.responseText));
+            }
+        };
+        xobj.send(null);
+    }
+
+    function getCurrentMonth() {
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long' };
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        return formatter.format(now); // Returns "Month Year", e.g., "August 2024"
+    }
+
+    function updateQuotaAndTable(month) {
+        const data = mediaData[month];
+        if (!data) return;
+
+        // Update table for larger screens
+        const tbody = $('#mediaTable tbody');
+        tbody.empty();
+        data.forEach(item => {
+            tbody.append(`
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${getTypeColor(item.type)}">${item.type}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.title}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.date}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.platform}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white-500"><a href="${item.url}" class="bg-indigo-500 rounded p-2 text-white no-underline">View Post</a></td>
+                </tr>
+            `);
+        });
+
+        // Update cards for mobile screens
+        const mediaCards = $('#mediaCards');
+        mediaCards.empty();
+        data.forEach(item => {
+            mediaCards.append(`
+                <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+                    <h3 class="text-lg font-semibold ${getTypeColor(item.type)}">${item.type}</h3>
+                    <p class="text-sm text-gray-500">Title: ${item.title}</p>
+                    <p class="text-sm text-gray-500">Date: ${item.date}</p>
+                    <p class="text-sm text-gray-500">Platform: ${item.platform}</p>
+                    <p class="text-sm text-gray-500 mt-2"><a href="${item.url}" class="bg-indigo-500 rounded p-1 text-white no-underline">View Post</a></p>
+                </div>
+            `);
+        });
+
+        // Calculate and update quota
+        const quotaCounts = {
+            Image: 0,
+            Video: 0,
+            Ad: 0
+        };
+
+        data.forEach(item => {
+            quotaCounts[item.type]++;
+        });
+
+        $('#imagesQuota').text(`${String(quotaCounts.Image).padStart(2, '0')}/10`);
+        $('#videosQuota').text(`${String(quotaCounts.Video).padStart(2, '0')}/03`);
+        $('#adsQuota').text(`${String(quotaCounts.Ad).padStart(2, '0')}/20`);
+    }
+
+    function getTypeColor(type) {
+        switch (type) {
+            case 'Image':
+                return 'text-blue-600';
+            case 'Video':
+                return 'text-green-600';
+            case 'Ad':
+                return 'text-purple-600';
+            default:
+                return 'text-gray-600';
+        }
+    }
+
+    function initializeDashboard() {
+        const months = Object.keys(mediaData);
+        const selector = $('#monthSelector');
+
+        // Populate month options
+        months.forEach(month => {
+            if (!selector.find(`option[value="${month}"]`).length) {
+                selector.append($('<option>', {
+                    value: month,
+                    text: month
+                }));
+            }
+        });
+
+        const currentMonth = getCurrentMonth();
+        console.log("Current Month: ", currentMonth); // Debugging: log current month
+
+        if (months.includes(currentMonth)) {
+            selector.val(currentMonth);
+            updateQuotaAndTable(currentMonth);
+        } else if (months.length > 0) {
+            selector.val(months[0]);
+            updateQuotaAndTable(months[0]);
+        }
+
+        selector.on('change', function() {
+            updateQuotaAndTable(this.value);
+        });
+    }
+
+    $(document).ready(function() {
+        loadJSONData(function(data) {
+            mediaData = data;
+            initializeDashboard();
+            createChart(mediaData);
+        });
+    });
+    </script>
+    <script>
+    // Function to export data to PDF
+    function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const month = $('#monthSelector').val();
+        const data = mediaData[month];
+
+        if (!data) {
+            alert('No data available for the selected month.');
+            return;
+        }
+
+        doc.setFontSize(18);
+        doc.text('Media Data Report', 14, 20);
+        doc.setFontSize(14);
+        doc.text(`Month: ${month}`, 14, 30);
+
+        doc.setFontSize(12);
+        doc.text('Media Details:', 14, 40);
+
+        let yOffset = 50;
+
+        data.forEach(item => {
+            doc.setFontSize(12);
+            doc.text(`Type: ${item.type}`, 14, yOffset);
+            doc.text(`Title/Description: ${item.title}`, 14, yOffset + 10);
+            doc.text(`Uploaded Date: ${item.date}`, 14, yOffset + 20);
+            doc.text(`Platform: ${item.platform}`, 14, yOffset + 30);
+            yOffset += 50;
+        });
+
+        doc.save('media-data-report.pdf');
+    }
+
+    $(document).ready(function() {
+        $('#exportPDF').click(function() {
+            exportToPDF();
+        });
+    });
+    </script>
+    <script>
+    function createChart(data) {
+        const ctx = document.getElementById('mediaChart').getContext('2d');
+
+        const labels = Object.keys(data);
+        const imageCounts = labels.map(month => data[month].filter(item => item.type === 'Image').length);
+        const videoCounts = labels.map(month => data[month].filter(item => item.type === 'Video').length);
+        const adCounts = labels.map(month => data[month].filter(item => item.type === 'Ad').length);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Images',
+                        data: imageCounts,
+                        backgroundColor: 'rgba(72, 126, 176,1.0)',
+                        borderColor: 'rgba(72, 126, 176,2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Videos',
+                        data: videoCounts,
+                        backgroundColor: 'rgba(0, 168, 255,1.0)',
+                        borderColor: 'rgba(0, 168, 255,2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Ads',
+                        data: adCounts,
+                        backgroundColor: 'rgba(76, 209, 55,1.0)',
+                        borderColor: 'rgba(76, 209, 55,2)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadJSONData(function(data) {
+            mediaData = data;
+            initializeDashboard();
+            createChart(mediaData);
+        });
+    });
+    </script>
+</body>
+
+</html>
