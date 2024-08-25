@@ -96,14 +96,18 @@
         return formatter.format(now); // Returns "Month Year", e.g., "August 2024"
     }
 
+    function sortDataByDate(data) {
+        return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
     function updateQuotaAndTable(month) {
         const data = mediaData[month];
         if (!data) return;
-
+        const sortedData = sortDataByDate(data);
         // Update table for larger screens
         const tbody = $('#mediaTable tbody');
         tbody.empty();
-        data.forEach(item => {
+        sortedData.forEach(item => {
             tbody.append(`
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${getTypeColor(item.type)}">${item.type}</td>
@@ -118,7 +122,7 @@
         // Update cards for mobile screens
         const mediaCards = $('#mediaCards');
         mediaCards.empty();
-        data.forEach(item => {
+        sortedData.forEach(item => {
             mediaCards.append(`
                 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
                     <h3 class="text-lg font-semibold ${getTypeColor(item.type)}">${item.type}</h3>
@@ -137,7 +141,7 @@
             Ad: 0
         };
 
-        data.forEach(item => {
+        sortedData.forEach(item => {
             quotaCounts[item.type]++;
         });
 

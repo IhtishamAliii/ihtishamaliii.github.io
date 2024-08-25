@@ -37,10 +37,45 @@
     },
     {
         "type": "Image",
+        "title": "14 August Celebration",
+        "date": "2024-08-14",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },
+    {
+        "type": "Image",
+        "title": "Clinic Shifting",
+        "date": "2024-08-16",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },
+    {
+        "type": "Image",
+        "title": "Intership/Hiring",
+        "date": "2024-08-17",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/share/AKAestheticsBeautyLaser/"
+    },
+    {
+        "type": "Video",
+        "title": "Mixed Treatments",
+        "date": "2024-08-21",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser/"
+    },
+    {
+        "type": "Image",
         "title": "Lip Filler Offer",
         "date": "2024-08-12",
         "platform": "FB & Insta",
         "url": "https://www.facebook.com/share/p/T4SHMg9xsDKoo8bP/"
+    },
+    {
+        "type": "Image",
+        "title": "Online Aesthetic Training",
+        "date": "2024-08-25",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser/"
     },
     {
         "type": "Ad",
@@ -83,8 +118,38 @@
     },{
         "type": "Ad",
         "title": "Laser Hair Removal",
-        "date": "2024-08-012",
+        "date": "2024-08-12",
         "platform": "FB & Insta",
         "url": "https://www.facebook.com/reel/826634662323856"
+    },{
+        "type": "Ad",
+        "title": "Mixed Treatments",
+        "date": "2024-08-22",
+        "platform": "Instagram",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },{
+        "type": "Ad",
+        "title": "Laser Hair Removal",
+        "date": "2024-08-23",
+        "platform": "Instagram",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },{
+        "type": "Ad",
+        "title": "Mixed Treatments",
+        "date": "2024-08-22",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },{
+        "type": "Ad",
+        "title": "Transform Yourself Post",
+        "date": "2024-08-23",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
+    },{
+        "type": "Ad",
+        "title": "Laser Hair Removal",
+        "date": "2024-08-23",
+        "platform": "Instagram",
+        "url": "https://www.facebook.com/AKAestheticsBeautyLaser"
     }]
 }

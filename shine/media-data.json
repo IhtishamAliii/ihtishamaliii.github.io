@@ -8,13 +8,6 @@
         "url": "https://www.facebook.com/share/p/7kHXWpAKJY6iYn56/"
     },
     {
-        "type": "Ad",
-        "title": "Coming Soon Poster",
-        "date": "2024-08-11",
-        "platform": "FB & Insta",
-        "url": "https://www.facebook.com/share/p/7kHXWpAKJY6iYn56/"
-    },
-    {
         "type": "Image",
         "title": "Aesthetician Hiring Post",
         "date": "2024-08-12",
@@ -22,10 +15,73 @@
         "url": "https://www.facebook.com/share/p/W2Wh2r42erLmx8mV/"
     },
     {
+        "type": "Image",
+        "title": "14 August Celebration",
+        "date": "2024-08-14",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "Aesthetics Training",
+        "date": "2024-08-22",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "Laser Hair Removal",
+        "date": "2024-08-19",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "PRP Therapy",
+        "date": "2024-08-19",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "Micro Needling",
+        "date": "2024-08-19",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "Pico Laser",
+        "date": "2024-08-19",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
+        "type": "Image",
+        "title": "PRGF Hair",
+        "date": "2024-08-19",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic"
+    },
+    {
         "type": "Ad",
         "title": "Aesthetician Hiring Post",
         "date": "2024-08-12",
         "platform": "FB & Insta",
         "url": "https://www.facebook.com/share/p/W2Wh2r42erLmx8mV/"
+    },
+    {
+        "type": "Ad",
+        "title": "Coming Soon",
+        "date": "2024-08-11",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic/"
+    },
+    {
+        "type": "Ad",
+        "title": "Aesthetic Training",
+        "date": "2024-08-23",
+        "platform": "FB & Insta",
+        "url": "https://www.facebook.com/ShineOneAesthetic/"
     }]
 }
