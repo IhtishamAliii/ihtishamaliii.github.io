@@ -122,11 +122,12 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 40px;
-    /*    z-index: 1000;*/
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     transition: transform 0.4s ease;
     border-bottom: none;
     z-index: 999999;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .header::after {
@@ -232,6 +233,8 @@ body {
     overflow: hidden;
     /* Ensures the animation doesn’t overflow */
     transition: background 0.4s ease;
+    width: 100%;
+    padding: 30px;
 }
 
 .footer::before {
@@ -363,6 +366,7 @@ body {
     overflow: hidden;
     margin-top: -50px;
     /*    z-index: -1;*/
+    width: 100%;
 }
 
 /* Floating and rotating logo animation */
@@ -856,6 +860,7 @@ body {
     /* Center vertically */
     height: 100vh;
     /* Full height of the viewport */
+    width: 100%;
 }
 
 .dashboard {
@@ -1304,6 +1309,8 @@ body {
     /*    height: 100vh;*/
     font-family: 'Poppins', sans-serif;
     margin-top: 100px;
+    width: 100%;
+
 }
 
 .testimonial-item {
@@ -1407,6 +1414,7 @@ body {
 .slider-button-next:hover {
     background-color: rgba(255, 255, 255, 1);
 }
+
 
 /* TESTIMONIAL SECTION STYLE --- END HERE */
 
@@ -1949,8 +1957,10 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     margin: 40px 20px;
-    padding: 10px;
+    padding: 10px 40px;
     box-sizing: border-box;
+    width: 100%;
+
 }
 
 /* Flip Card */
@@ -2055,7 +2065,7 @@ body {
     right: 0;
     bottom: 0;
     /*    background: radial-gradient(circle, rgba(0, 245, 212, 0.1), transparent);*/
-    background: var(--card-bg), transparent;
+    background: var(--card-bg);
     border-radius: 10px;
 
     /*    animation: pulse 3s infinite ease-in-out;*/
