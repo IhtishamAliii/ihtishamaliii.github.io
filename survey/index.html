@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🩹 First Aid Mini Kit - Market Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #fd79a8 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 60px 60px;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInDown 1s ease-out;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #fd79a8, #ee5a24);
+            background-size: 200% 100%;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .section-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+            outline: none;
+            background: #fff;
+            transform: translateY(-1px);
+        }
+
+        .checkbox-group, .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            background: #fff5f5;
+            border-color: #ff6b6b;
+            transform: translateY(-1px);
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-item.selected, .radio-item.selected {
+            background: linear-gradient(135deg, #ff6b6b, #fd79a8);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #fd79a8);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #fd79a8);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .floating-help {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 210, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+        }
+
+        .floating-help:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-help:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #00d2ff;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .checkbox-group, .radio-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>
+                <svg width="40" height="40" viewBox="0 0 100 100" style="display: inline-block; margin-right: 10px; vertical-align: middle;">
+                    <rect x="20" y="20" width="60" height="60" rx="5" fill="#ffffff" stroke="#ff6b6b" stroke-width="3"/>
+                    <rect x="45" y="30" width="10" height="30" fill="#ff6b6b"/>
+                    <rect x="35" y="40" width="30" height="10" fill="#ff6b6b"/>
+                </svg>
+                First Aid Mini Kit Survey
+            </h1>
+            <p>Help us create the perfect first aid solution for you!</p>
+        </div>
+
+        <div class="form-container">
+            <div class="progress-bar"></div>
+            
+            <div class="form-content">
+                <form id="surveyForm">
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <circle cx="50" cy="35" r="15" fill="#ff6b6b"/>
+                                <path d="M50 55 C35 55, 25 65, 25 80 L75 80 C75 65, 65 55, 50 55" fill="#ff6b6b"/>
+                            </svg>
+                            About You
+                        </div>
+                        
+                        <label for="age">What's your age group?</label>
+                        <select id="age" name="age" required>
+                            <option value="">Select your age group</option>
+                            <option>Under 18</option>
+                            <option>18-24</option>
+                            <option>25-34</option>
+                            <option>35-44</option>
+                            <option>45+</option>
+                        </select>
+
+                        <label for="profession">What describes you best?</label>
+                        <select id="profession" name="profession" required>
+                            <option value="">Select your category</option>
+                            <option>Student</option>
+                            <option>Office worker</option>
+                            <option>Healthcare professional</option>
+                            <option>Traveller/adventurer</option>
+                            <option>Hostel resident</option>
+                            <option>Parent/caregiver</option>
+                            <option>Other</option>
+                        </select>
+
+                        <label for="city">Which city are you from?</label>
+                        <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <rect x="20" y="30" width="60" height="50" rx="5" fill="#ff6b6b"/>
+                                <rect x="45" y="20" width="10" height="25" fill="#ff6b6b"/>
+                                <rect x="35" y="35" width="30" height="8" fill="white"/>
+                                <circle cx="30" cy="60" r="3" fill="white"/>
+                                <circle cx="40" cy="60" r="3" fill="white"/>
+                                <circle cx="60" cy="60" r="3" fill="white"/>
+                                <circle cx="70" cy="60" r="3" fill="white"/>
+                            </svg>
+                            Your First Aid Experience
+                        </div>
+                        
+                        <label>Do you currently own a First Aid Kit?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="ownKit" value="Yes" required>
+                                <span>Yes, I have one</span>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="ownKit" value="No" required>
+                                <span>No, I don't</span>
+                            </div>
+                        </div>
+
+                        <label>Have you ever needed a First Aid Kit but didn't have one available?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="needKit" value="Yes" required>
+                                <span>Yes, unfortunately</span>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="needKit" value="No" required>
+                                <span>No, never needed one</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <circle cx="50" cy="50" r="25" fill="none" stroke="#ff6b6b" stroke-width="3"/>
+                                <circle cx="50" cy="50" r="5" fill="#ff6b6b"/>
+                                <path d="M50 25 L55 35 L50 30 L45 35 Z" fill="#ff6b6b"/>
+                            </svg>
+                            Where Would You Use It?
+                        </div>
+                        
+                        <label>Select all places where you'd use a First Aid Mini Kit:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Office">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <rect x="20" y="30" width="60" height="50" fill="#666" stroke="#333" stroke-width="2"/>
+                                    <rect x="30" y="40" width="15" height="10" fill="#87ceeb"/>
+                                    <rect x="55" y="40" width="15" height="10" fill="#87ceeb"/>
+                                    <rect x="30" y="60" width="15" height="10" fill="#87ceeb"/>
+                                    <rect x="55" y="60" width="15" height="10" fill="#87ceeb"/>
+                                </svg>
+                                <span>Office</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Hostel">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <path d="M30 70 L30 40 L50 25 L70 40 L70 70 Z" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+                                    <rect x="40" y="50" width="8" height="12" fill="#654321"/>
+                                    <rect x="52" y="50" width="8" height="8" fill="#87ceeb"/>
+                                    <polygon points="25,40 50,20 75,40" fill="#DC143C"/>
+                                </svg>
+                                <span>Hostel</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Travelling">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <path d="M20 60 L35 30 L65 30 L80 60 Z" fill="#4169E1" stroke="#000080" stroke-width="2"/>
+                                    <circle cx="30" cy="65" r="8" fill="#333"/>
+                                    <circle cx="70" cy="65" r="8" fill="#333"/>
+                                    <rect x="25" y="35" width="50" height="20" fill="#87ceeb"/>
+                                </svg>
+                                <span>Travelling</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Home">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <path d="M25 70 L25 45 L50 25 L75 45 L75 70 Z" fill="#DEB887" stroke="#8B7355" stroke-width="2"/>
+                                    <rect x="42" y="55" width="16" height="15" fill="#654321"/>
+                                    <rect x="55" y="45" width="12" height="10" fill="#87ceeb"/>
+                                    <polygon points="20,45 50,20 80,45" fill="#DC143C"/>
+                                </svg>
+                                <span>Home</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Car">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <rect x="20" y="50" width="60" height="25" rx="5" fill="#FF6347" stroke="#DC143C" stroke-width="2"/>
+                                    <circle cx="30" cy="75" r="8" fill="#333"/>
+                                    <circle cx="70" cy="75" r="8" fill="#333"/>
+                                    <rect x="25" y="40" width="50" height="15" fill="#87ceeb"/>
+                                    <rect x="35" y="35" width="30" height="10" fill="#87ceeb"/>
+                                </svg>
+                                <span>Car</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Sports">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <circle cx="50" cy="50" r="25" fill="none" stroke="#32CD32" stroke-width="4"/>
+                                    <path d="M35 35 L65 65 M65 35 L35 65" stroke="#32CD32" stroke-width="3"/>
+                                </svg>
+                                <span>Sports/Gym</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Outdoor">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <path d="M30 70 L50 30 L70 70 Z" fill="#228B22" stroke="#006400" stroke-width="2"/>
+                                    <path d="M40 70 L60 40 L80 70 Z" fill="#32CD32" stroke="#228B22" stroke-width="2"/>
+                                    <rect x="20" y="70" width="60" height="10" fill="#8B4513"/>
+                                </svg>
+                                <span>Outdoor Activities</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="usage" value="Other">
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                                    <rect x="30" y="30" width="40" height="40" fill="#DDD" stroke="#999" stroke-width="2"/>
+                                    <circle cx="40" cy="40" r="3" fill="#666"/>
+                                    <circle cx="60" cy="40" r="3" fill="#666"/>
+                                    <circle cx="40" cy="60" r="3" fill="#666"/>
+                                    <circle cx="60" cy="60" r="3" fill="#666"/>
+                                </svg>
+                                <span>Other</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <rect x="25" y="35" width="50" height="35" rx="5" fill="#ff6b6b" stroke="#cc0000" stroke-width="2"/>
+                                <rect x="30" y="40" width="40" height="5" fill="white"/>
+                                <rect x="30" y="50" width="40" height="5" fill="white"/>
+                                <rect x="30" y="60" width="40" height="5" fill="white"/>
+                                <rect x="45" y="25" width="10" height="15" fill="#ff6b6b"/>
+                            </svg>
+                            Kit Contents & Preferences
+                        </div>
+                        
+                        <label>Which items are most important to you? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Band-aids">
+                                <span>🩹 Band-aids</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Antiseptic wipes">
+                                <span>🧽 Antiseptic wipes</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Pain relief tablets">
+                                <span>💊 Pain relief tablets</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Small scissors">
+                                <span>✂️ Small scissors</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Medical tape">
+                                <span>📏 Medical tape</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Gauze pads">
+                                <span>🏥 Gauze pads</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Antiseptic ointment">
+                                <span>🧴 Antiseptic ointment</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Face masks">
+                                <span>😷 Face masks</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Gloves">
+                                <span>🧤 Disposable gloves</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Thermometer">
+                                <span>🌡️ Digital thermometer</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Emergency blanket">
+                                <span>🛡️ Emergency blanket</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Tweezers">
+                                <span>🔧 Tweezers</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Compact flashlight">
+                                <span>🔦 Compact flashlight</span>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="items" value="Instant cold pack">
+                                <span>❄️ Instant cold pack</span>
+                            </div>
+                        </div>
+
+                        <label>What's your preferred kit size?</label>
+                        <select name="kitSize" required>
+                            <option value="">Choose size preference</option>
+                            <option>Pocket size (fits in wallet)</option>
+                            <option>Small pouch (phone size)</option>
+                            <option>Medium box (book size)</option>
+                            <option>Large kit (comprehensive)</option>
+                            <option>No preference</option>
+                        </select>
+
+                        <label>How important are branded & high-quality items?</label>
+                        <select name="qualityImportance" required>
+                            <option value="">Select importance level</option>
+                            <option>Very important - only trusted brands</option>
+                            <option>Somewhat important - prefer known brands</option>
+                            <option>Not important - value over brand</option>
+                        </select>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <circle cx="50" cy="50" r="30" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                                <text x="50" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#ff6b6b">₹</text>
+                            </svg>
+                            Pricing & Purchase
+                        </div>
+                        
+                        <div class="price-display">
+                            <span>
+                                <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px; vertical-align: middle;">
+                                    <circle cx="50" cy="50" r="20" fill="yellow" stroke="orange" stroke-width="3"/>
+                                    <path d="M40 40 L60 40 L55 55 L45 55 Z" fill="orange"/>
+                                </svg>
+                                Market Research Insight
+                            </span>
+                            <span>Average kit costs: Rs. 1200-2500</span>
+                        </div>
+
+                        <label>How much would you invest in a quality First Aid Mini Kit?</label>
+                        <select name="priceRange" required>
+                            <option value="">Select your budget range</option>
+                            <option>Less than Rs. 800</option>
+                            <option>Rs. 800 - 1200</option>
+                            <option>Rs. 1200 - 1800</option>
+                            <option>Rs. 1800 - 2500</option>
+                            <option>Rs. 2500 - 3500</option>
+                            <option>More than Rs. 3500</option>
+                        </select>
+
+                        <label>Where would you prefer to purchase the kit?</label>
+                        <select name="buyPlace" required>
+                            <option value="">Choose purchase preference</option>
+                            <option>Online (Amazon, Flipkart, etc.)</option>
+                            <option>Medical store/Pharmacy</option>
+                            <option>Supermarket/Hypermarket</option>
+                            <option>Through workplace</option>
+                            <option>Hospital/Clinic</option>
+                            <option>Specialty health stores</option>
+                            <option>No preference</option>
+                        </select>
+
+                        <label>Would you recommend a quality first aid kit to others?</label>
+                        <select name="recommend" required>
+                            <option value="">Select recommendation level</option>
+                            <option>Absolutely - would actively promote</option>
+                            <option>Yes - would recommend if asked</option>
+                            <option>Maybe - depends on their needs</option>
+                            <option>Probably not</option>
+                        </select>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 100 100" style="margin-right: 10px;">
+                                <path d="M30 70 C30 50, 50 30, 70 50 C70 60, 50 70, 30 70" fill="none" stroke="#ff6b6b" stroke-width="3"/>
+                                <circle cx="45" cy="45" r="3" fill="#ff6b6b"/>
+                                <circle cx="55" cy="55" r="3" fill="#ff6b6b"/>
+                            </svg>
+                            Your Ideas & Feedback
+                        </div>
+                        
+                        <label>What special features would make you choose our kit over others?</label>
+                        <textarea name="features" rows="3" placeholder="e.g., compact design, emergency instructions included, refill service, mobile app integration..."></textarea>
+
+                        <label>Any other suggestions, concerns, or ideas you'd like to share?</label>
+                        <textarea name="comments" rows="3" placeholder="Your valuable feedback helps us create better products..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px; vertical-align: middle;">
+                            <path d="M20 50 L40 70 L80 30" fill="none" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        Submit My Feedback
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-help">
+        💬
+        <div class="tooltip">Need help? Click for assistance!</div>
+    </div>
+
+    <div class="success-message" id="successMessage">
+        <div class="success-icon">🎉</div>
+        <h2>Thank You!</h2>
+        <p>Your valuable feedback has been submitted successfully.</p>
+        <p>Together, we'll create the perfect first aid solution!</p>
+    </div>
+
+    <script>
+        // Enhanced form functionality
+        const form = document.getElementById('surveyForm');
+        const checkboxItems = document.querySelectorAll('.checkbox-item');
+        const radioItems = document.querySelectorAll('.radio-item');
+        const successMessage = document.getElementById('successMessage');
+        const floatingHelp = document.querySelector('.floating-help');
+
+        // Handle checkbox visual feedback
+        checkboxItems.forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        });
+
+        // Handle radio button visual feedback
+        radioItems.forEach(item => {
+            const radio = item.querySelector('input[type="radio"]');
+            radio.addEventListener('change', () => {
+                // Remove selected class from all items in the same group
+                const groupName = radio.name;
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                    r.closest('.radio-item').classList.remove('selected');
+                });
+                // Add selected class to current item
+                item.classList.add('selected');
+            });
+        });
+
+        // Enhanced form submission with animation
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message with animation
+            successMessage.classList.add('show');
+            
+            // Hide success message after 3 seconds and reset form
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                form.reset();
+                
+                // Reset visual states
+                checkboxItems.forEach(item => item.classList.remove('selected'));
+                radioItems.forEach(item => item.classList.remove('selected'));
+            }, 3000);
+        });
+
+        // Floating help functionality
+        floatingHelp.addEventListener('click', () => {
+            alert(`📋 Survey Help:
+
+• Take your time - there's no rush!
+• Select all options that apply to you
+• Your honest feedback helps us create better products
+• All responses are confidential
+• Contact us at +92 315 9396545 for questions
+
+Thank you for participating! 🙏`);
+        });
+
+        // Smooth scrolling for better UX
+        const sections = document.querySelectorAll('.section');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            section.style.opacity = '0.8';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Add some interactive feedback for form elements
+        const formElements = document.querySelectorAll('input, select, textarea');
+        formElements.forEach(element => {
+            element.addEventListener('focus', () => {
+                element.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            element.addEventListener('blur', () => {
+                element.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach((value, key) => {
+                    // Handle multiple selections (checkboxes)
+                    if (data[key]) {
+                        if (!Array.isArray(data[key])) {
+                            data[key] = [data[key]];
+                        }
+                        data[key].push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                });
+
+                // Send data to Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwNxFag8gBQ3bH8xXMXEkiQH6qQqf_661GNNErX6T4UNS5rFX7JgmY2Sc5mDeVSgThz/exec', {
+                    method: 'POST',
+                    mode: 'no-cors', // Add this line
+                    body: new URLSearchParams(data)
+                });
+
+                // Show success message
+                alert('Thank you! Your response has been recorded.');
+                this.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting your response. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
